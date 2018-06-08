@@ -47,9 +47,11 @@
           </li>
         </ul>
         <!-- 单元格 -->
-        <div class="select">
-          <p>是否邮寄提货卷</p>
-          <p @click="showOne">请选择<span class="iconfont arrow-icon">&#xe66b;</span></p>
+        <div class="select " @click="showOne">
+          <div class="border-top padding_top">
+          <p >是否邮寄提货卷</p>
+          <p >请选择<span class="iconfont arrow-icon">&#xe66b;</span></p>
+          </div>
         </div>
         <!--是否邮寄提货卷弹出-->
         <van-popup v-model="Mailing">

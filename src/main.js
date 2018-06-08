@@ -28,7 +28,9 @@ import '@/assets/iconfont/iconfont.css'
 Vue.use(Vant);
 
 Vue.use(VueAwesomeSwiper)
-Vue.use(Lazyload);
+Vue.use(Lazyload,{
+  
+});
 Vue.use(VueVideoPlayer)
 
 Vue.config.productionTip = false

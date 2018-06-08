@@ -2,7 +2,7 @@
  * @Author: tarn.tianrun 
  * @Date: 2018-05-14 11:08:35 
  * @Last Modified by: By.zhangTeng
- * @Last Modified time: 2018-05-25 10:33:39
+ * @Last Modified time: 2018-06-08 13:46:55
  */
 
 <style scoped lang="less">
@@ -77,7 +77,7 @@
 			console.log("from",from)
 			if(from=="IOS"){
 				this.isClient=true;
-				this.marginTop="0";
+				this.marginTop="46px";
 			}else if(from=="Android"){
 				this.isClient=true;
 				this.marginTop="0";

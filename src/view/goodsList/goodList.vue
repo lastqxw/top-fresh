@@ -2,12 +2,13 @@
  * @Author: By.zhangTeng 
  * @Date: 2018-05-22 17:14:03 
  * @Last Modified by: By.zhangTeng
- * @Last Modified time: 2018-05-28 16:34:25
+ * @Last Modified time: 2018-06-08 13:56:59
  */
 
 <style lang="less" scoped>
     .container{
-        margin-top: 70px !important;
+        padding-top: 70px;
+        margin-top: 0px !important;
         background-color: #fff;
     }
     

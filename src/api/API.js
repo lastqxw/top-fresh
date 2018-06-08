@@ -21,7 +21,7 @@ class API {
         method: 'post',
         url,
         params: params,
-      }).then(res => {
+      }).then(res => { 
         resolve(res)
       })
     })
