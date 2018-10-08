@@ -1,60 +1,160 @@
 <style scoped lang="less">
-	@import './exercise.less';
+@import "./exercise.less";
 </style>
 <template>
-	<div class="exercise">
-		<div class="e-title">
-			<p>极味生鲜活动</p>
-			<span>给您更好的推荐</span>
-		</div>
-		<!-- v-bind:style="{width:viewWeight}" -->
-		<div class="exercise-active">
+  <div class="exercise">
+    <div class="e-title">
+      <p>限时活动</p>
+      <span>给您更好的优惠</span>
+    </div>
+    <div class="exercise-active">
 
 
-			<div class="left" @click="goActiveInfoVC('1234')">
-				<img src="../../../../assets//img/5a4ae29389f5447f259a48e494da3d92.png">
-			</div>
-			<div class="right">
-				<div class="right-info" @click="goYouhuiquanVC()">
-					<img src="../../../../assets/img/a1acfdc9d8086ac36ad9243e8bff1717.png">
-				</div>
-				<div class="right-info" @click="goPintuanGoodsVC()">
-					<img src="../../../../assets/img/efa9323abe51f7c2e047739906a2b2c2.png">
-				</div>
-			</div>
-		</div>
-	</div>
+      <!-- <div class="left" @click="goActiveInfo(activities[0])">
+        <img v-if="activities" :src="activities[0].imgUrl" alt="">
+      </div>
+      <div class="right">
+        <div class="right-info" @click="goActiveInfo(activities[1])">
+          <img v-if="activities" :src="activities[1].imgUrl" alt="">
+        </div>
+        <div class="right-info" @click="goActiveInfo(activities[2])">
+          <img v-if="activities" :src="activities[2].imgUrl" alt="">
+        </div>
+      </div> -->
+
+      <div class="top" @click="goActiveInfo(activities[0])">
+        <img v-if="activities" :src="activities[0].imgUrl" alt="">
+      </div>
+      <div class="bottom">
+        <div class="bottom-info" @click="goActiveInfo(activities[1])">
+          <img v-if="activities" :src="activities[1].imgUrl" alt="" >
+        </div>
+        <div class="bottom-info" @click="goActiveInfo(activities[2])">
+          <img v-if="activities" :src="activities[2].imgUrl" alt="">
+        </div>
+      </div>
+
+
+    </div>
+  </div>
 </template>
 <script>
-	export default {
-		data() {
-			return {
-			}
-		},
-		beforeMount() {
-		},
-		methods: {
-			goActiveInfoVC(activeId){
-				this.$bridge.callHandler('goPickupVC',{"activeid":activeId} , (data) => {
-					console.log("success")
-				})
-			},
-			goYouhuiquanVC(){
-				this.$bridge.callHandler('goYouhuiquanVC', (data) => {
-					console.log("success")
-				})
-			},
-			goPintuanGoodsVC(){
-				this.$bridge.callHandler('goPintuanGoodsVC', (data) => {
-					console.log("success")
-				})
-			}
-
-		},
-		computed: {
-			viewWeight: function () {
-				return ((window.innerWidth - 20) / 2) + 'px'
-			},
-		}
-	}
+export default {
+  props: ["activities"],
+  data() {
+    return {};
+  },
+  mounted() {},
+  methods: {
+    getCookie(name) {
+      var arr,
+        reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
+      if ((arr = document.cookie.match(reg))) {
+        return unescape(arr[2]);
+      } else {
+        return null;
+      }
+    },
+    goActiveInfo(activeId) {
+      let from = this.$route.query.from;
+      //   优惠券
+      if (activeId.type == 1) {
+        if (from == "IOS" || from == "Android") {
+          this.$bridge.callHandler(
+            "goActiveInfoVC",
+            {
+              type: 1,
+              link: `${activeId.id}`,
+              title: `${activeId.title}`
+            },
+            data => {
+            }
+          );
+        } else {
+          if (this.getCookie("token")) {
+            this.$router.push(`/myCoupon/${activeId.id}`);
+            this.$store.commit("setcurrentActiveName", activeId.title);
+          } else {
+            sessionStorage.link = window.location.href;
+            this.$router.push(`/login`);
+          }
+        }
+        // 拼团
+      } else if (activeId.type == 2) {
+        if (from == "IOS" || from == "Android") {
+          this.$bridge.callHandler(
+            "goActiveInfoVC",
+            {
+              type: 2,
+              link: `${activeId.id}`,
+              title: `${activeId.title}`
+            },
+            data => {}
+          );
+        } else {
+          if (this.getCookie("token")) {
+            this.$router.push(`/teamwork/${activeId.id}`);
+          } else {
+            sessionStorage.link = window.location.href;
+            this.$router.push(`/login`);
+          }
+        }
+        // 商品集锦
+      } else if (activeId.type == 3) {
+        if (from == "IOS" || from == "Android") {
+          this.$bridge.callHandler(
+            "goActiveInfoVC",
+            {
+              type: 3,
+              link: `${activeId.id}`,
+              title: `${activeId.title}`
+            },
+            data => {
+            }
+          );
+        } else {
+          this.$router.push(`/goodsList/${activeId.id}`);
+          this.$store.commit("setcurrentActiveName", activeId.title);
+        }
+      } else if (activeId.type == 4) {
+        // 静态
+        if (from == "IOS" || from == "Android") {
+          this.$bridge.callHandler(
+            "goActiveInfoVC",
+            {
+              type: 4,
+              link: `${activeId.id}`,
+              title: `${activeId.title}`
+            },
+            data => {
+            }
+          );
+        } else {
+          this.$router.push(`/eventList/${activeId.id}`);
+          this.$store.commit("setcurrentActiveName", activeId.title);
+        }
+      } else if (activeId.type == 5) {
+        if (from == "IOS" || from == "Android") {
+          this.$bridge.callHandler(
+            "goActiveInfoVC",
+            {
+              type: 5,
+              link: activeId.link,
+              title: `${activeId.title}`
+            },
+            data => {
+            }
+          );
+        } else {
+          window.location.href = activeId.link;
+        }
+      }
+    }
+  },
+  computed: {
+    viewWeight: function() {
+      return (window.innerWidth - 20) / 2 + "px";
+    }
+  }
+};
 </script>

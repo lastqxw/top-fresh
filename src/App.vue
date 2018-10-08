@@ -16,24 +16,31 @@
 		-webkit-font-smoothing: antialiased;
 		-moz-osx-font-smoothing: grayscale;
 		-webkit-overflow-scrolling:touch;
-		/* text-align: center; */
-		/* color: #2c3e50; */
+		color: #3d3d3d;
 		background-color: #EFEFF7;
-		/* overflow: hidden; */
 	}
-
 	html,
 	body {
-		/* overflow: hidden; */
 		width: 100%;
 		height: 100%;
 		margin: 0;
 		padding: 0;
-	}
+    background-color: #EFEFF7;
+  }
 
 	* {
 		margin: 0;
 		padding: 0;
 		border: 0;
+	}
+	.van-checkbox--checked {
+		background:#e1bf82 !important; 
+		border: none !important;
+	}
+	.van-radio .van-icon-checked{
+		color: #e2bf84 !important;
+	}
+	.van-radio .van-icon{
+		font-size: 15px !important;
 	}
 </style>
